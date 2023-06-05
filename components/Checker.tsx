@@ -150,13 +150,13 @@ export function Checker() {
       )}
       <CardContent>
         {file ? (
-          <div className="mb-2 h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
             <Image src={file} alt="webcam" width={220} height={220} />
           </div>
         ) : (
           <div
             {...getRootProps()}
-            className="mb-2 h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200"
+            className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200"
           >
             Drop image here
             <input {...getInputProps()} />

@@ -2,20 +2,23 @@ import React from "react";
 
 import { Camera } from "@/components/Camera";
 import { Checker } from "@/components/Checker";
-
-const style = "w-96 border border-white p-6 gap-6";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/tabs";
 
 export default function Home() {
   return (
-    <main>
-      <div className="p-12 min-h-screen flex-col md:flex-row flex gap-8 w-full justify-center items-center">
-        <div className={style}>
+    <main className="w-full pt-4 flex justify-center items-center">
+      <Tabs defaultValue="take" className="w-[400px]">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="take">Take a photo</TabsTrigger>
+          <TabsTrigger value="check">Check a photo</TabsTrigger>
+        </TabsList>
+        <TabsContent value="take">
           <Camera />
-        </div>
-        <div className={style}>
+        </TabsContent>
+        <TabsContent value="check">
           <Checker />
-        </div>
-      </div>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }

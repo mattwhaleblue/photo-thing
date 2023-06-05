@@ -15,63 +15,11 @@ import {
 } from "@/components/card";
 import { Label } from "./label";
 import { Input } from "./input";
-
-// export function Camera() {
-//   const webcamRef = React.useRef<Webcam>(null);
-//   const [imgSrc, setImgSrc] = React.useState<string | null | undefined>(null);
-//   const [response, setResponse] = React.useState<string | null | undefined>(
-//     null
-//   );
-
-//   const capture = React.useCallback(async () => {
-//     const imageSrc = webcamRef?.current?.getScreenshot();
-//     setImgSrc(imageSrc);
-//     const repsonse = await fetch("api/upload", {
-//       method: "POST",
-//       body: JSON.stringify({ imageSrc }),
-//     });
-//     const json = await repsonse.json();
-
-//     setResponse(json.data);
-//   }, [webcamRef]);
-
-//   return (
-//     <div className="flex flex-col gap-6 justify-center items-center">
-//       {imgSrc ? (
-//         <>
-//           <Image src={imgSrc} alt="webcam" height={220} width={220} />
-//           <Button>
-//             <a href={imgSrc} download>
-//               Download
-//             </a>
-//           </Button>
-//         </>
-//       ) : (
-//         <Webcam
-//           height={220}
-//           width={220}
-//           ref={webcamRef}
-//           screenshotFormat="image/png"
-//         />
-//       )}
-//       {!!response && <div>Code: {response}</div>}
-//       <div className="btn-container flex gap-6">
-//         <Button onClick={capture}>Capture photo</Button>
-//         <Button
-//           onClick={() => {
-//             setImgSrc(null);
-//             setResponse(null);
-//           }}
-//         >
-//           Reset
-//         </Button>
-//       </div>
-//     </div>
-//   );
-// }
+import { RefreshCw } from "lucide-react";
 
 export function Camera() {
   const webcamRef = React.useRef<Webcam>(null);
+  const [cameraDirection, setCameraDirection] = React.useState("user");
   const [imgSrc, setImgSrc] = React.useState<string | null | undefined>(null);
   const [response, setResponse] = React.useState<string | null | undefined>(
     null
@@ -101,14 +49,24 @@ export function Camera() {
             <Image src={imgSrc} alt="webcam" height={220} width={220} />
           </div>
         ) : (
-          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200 relative">
             <Webcam
               ref={webcamRef}
               height={220}
               width={220}
               screenshotFormat="image/png"
-              // videoConstraints={{ facingMode: "environment" }}
+              videoConstraints={{ facingMode: cameraDirection }}
             />
+            <button
+              className="absolute rounded-full border border-gray-200 flex justify-center items-center right-2 bottom-2 h-12 w-12 p-2"
+              onClick={() => {
+                setCameraDirection(
+                  cameraDirection === "user" ? "environment" : "user"
+                );
+              }}
+            >
+              <RefreshCw />
+            </button>
           </div>
         )}
         <div className="flex flex-col space-y-1.5">
