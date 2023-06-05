@@ -183,7 +183,7 @@ export function Checker() {
         >
           Cancel
         </Button>
-        <Button onClick={() => handleSubmit()}>Check</Button>
+        <Button className={response === null ? "" : isLegit ? "bg-green-400" : "bg-red-400"} onClick={() => handleSubmit()}>Check</Button>
       </CardFooter>
     </Card>
   );
