@@ -97,17 +97,17 @@ export function Camera() {
       </CardHeader>
       <CardContent>
         {imgSrc ? (
-          <div className="mb-2 h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
             <Image src={imgSrc} alt="webcam" height={220} width={220} />
           </div>
         ) : (
-          <div className="mb-2 h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
             <Webcam
               ref={webcamRef}
               height={220}
               width={220}
               screenshotFormat="image/png"
-              videoConstraints={{ facingMode: "environment" }}
+              // videoConstraints={{ facingMode: "environment" }}
             />
           </div>
         )}
