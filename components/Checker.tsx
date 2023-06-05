@@ -32,66 +32,6 @@ async function imageUploaded(file: any): Promise<string> {
   });
 }
 
-// export function Checker() {
-//   const [words, setWords] = React.useState<string>("");
-//   const [file, setFile] = React.useState<string | null | undefined>(null);
-//   const [response, setResponse] = React.useState<string | null | undefined>(
-//     null
-//   );
-
-//   const handleChange = async (file: any) => {
-//     const base64 = await imageUploaded(file);
-//     setFile(`data:image/png;base64,${base64}`);
-//   };
-
-//   const handleSubmit = async () => {
-//     const response = await fetch("api/check", {
-//       method: "POST",
-//       body: JSON.stringify({
-//         imageSrc: file,
-//         words,
-//       }),
-//     });
-//     const json = await response.json();
-
-//     setResponse(json.data);
-//   };
-
-//   return (
-//     <div className="flex flex-col justify-center gap-6 items-center">
-//       {file ? (
-//         <Image src={file} alt="webcam" width={220} height={220} />
-//       ) : (
-//         <FileUploader
-//           handleChange={handleChange}
-//           name="file"
-//           className="h-42"
-//         />
-//       )}
-
-//       <input
-//         type="text"
-//         className="text white border border-white bg-transparent rounded-md p-2"
-//         value={words}
-//         onChange={(e) => setWords(e.target.value)}
-//       />
-//       <div className="btn-container flex gap-6">
-//         <Button onClick={() => handleSubmit()}>Submit</Button>
-//         <Button
-//           onClick={() => {
-//             setWords("");
-//             setFile(null);
-//             setResponse(null);
-//           }}
-//         >
-//           Reset
-//         </Button>
-//       </div>
-//       {response !== null && <div>Is legit: {response ? "YES" : "NO"}</div>}
-//     </div>
-//   );
-// }
-
 export function Checker() {
   const [words, setWords] = React.useState<string>("");
   const [file, setFile] = React.useState<string | null | undefined>(null);
@@ -125,7 +65,11 @@ export function Checker() {
   const isNotLegit = response === false;
 
   return (
-    <Card className={response === null ? "" : isLegit ? "border-green-400" : "border-red-400"}>
+    <Card
+      className={
+        response === null ? "" : isLegit ? "border-green-400" : "border-red-400"
+      }
+    >
       {response === null && (
         <CardHeader>
           <CardTitle>Checker</CardTitle>
@@ -150,13 +94,13 @@ export function Checker() {
       )}
       <CardContent>
         {file ? (
-          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 py-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
             <Image src={file} alt="webcam" width={220} height={220} />
           </div>
         ) : (
           <div
             {...getRootProps()}
-            className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200"
+            className="mb-2 py-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200"
           >
             Drop image here
             <input {...getInputProps()} />
@@ -183,7 +127,14 @@ export function Checker() {
         >
           Cancel
         </Button>
-        <Button className={response === null ? "" : isLegit ? "bg-green-400" : "bg-red-400"} onClick={() => handleSubmit()}>Check</Button>
+        <Button
+          className={
+            response === null ? "" : isLegit ? "bg-green-400" : "bg-red-400"
+          }
+          onClick={() => handleSubmit()}
+        >
+          Check
+        </Button>
       </CardFooter>
     </Card>
   );

@@ -19,7 +19,7 @@ import { RefreshCw } from "lucide-react";
 
 export function Camera() {
   const webcamRef = React.useRef<Webcam>(null);
-  const [cameraDirection, setCameraDirection] = React.useState("user");
+  const [cameraDirection, setCameraDirection] = React.useState("environment");
   const [imgSrc, setImgSrc] = React.useState<string | null | undefined>(null);
   const [response, setResponse] = React.useState<string | null | undefined>(
     null
@@ -45,11 +45,11 @@ export function Camera() {
       </CardHeader>
       <CardContent>
         {imgSrc ? (
-          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
+          <div className="mb-2 py-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200">
             <Image src={imgSrc} alt="webcam" height={220} width={220} />
           </div>
         ) : (
-          <div className="mb-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200 relative">
+          <div className="mb-2 py-2 min-h-[220px] flex justify-center items-center rounded-md border border-dashed border-gray-200 relative">
             <Webcam
               ref={webcamRef}
               height={220}
@@ -58,7 +58,7 @@ export function Camera() {
               videoConstraints={{ facingMode: cameraDirection }}
             />
             <button
-              className="absolute rounded-full border border-gray-200 flex justify-center items-center right-2 bottom-2 h-12 w-12 p-2"
+              className="absolute rounded-full border border-gray-200 flex justify-center items-center right-2 bottom-2 h-12 w-12 p-2 bg-white"
               onClick={() => {
                 setCameraDirection(
                   cameraDirection === "user" ? "environment" : "user"
