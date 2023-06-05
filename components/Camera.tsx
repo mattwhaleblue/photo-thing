@@ -19,6 +19,7 @@ import { RefreshCw } from "lucide-react";
 
 export function Camera() {
   const webcamRef = React.useRef<Webcam>(null);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [cameraDirection, setCameraDirection] = React.useState("environment");
   const [imgSrc, setImgSrc] = React.useState<string | null | undefined>(null);
   const [response, setResponse] = React.useState<string | null | undefined>(
@@ -26,6 +27,7 @@ export function Camera() {
   );
 
   const capture = React.useCallback(async () => {
+    setIsLoading(true);
     const imageSrc = webcamRef?.current?.getScreenshot();
     setImgSrc(imageSrc);
     const repsonse = await fetch("api/upload", {
@@ -35,6 +37,7 @@ export function Camera() {
     const json = await repsonse.json();
 
     setResponse(json.data);
+    setIsLoading(false);
   }, [webcamRef]);
 
   return (
@@ -94,7 +97,9 @@ export function Camera() {
             <Button>Download</Button>
           </a>
         ) : (
-          <Button onClick={capture}>Capture</Button>
+          <Button onClick={capture}>
+            {isLoading ? "Loading..." : "Capture"}
+          </Button>
         )}
       </CardFooter>
     </Card>
