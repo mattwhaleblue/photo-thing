@@ -15,7 +15,15 @@ import {
 } from "@/components/card";
 import { Label } from "./label";
 import { Input } from "./input";
-import { RefreshCw } from "lucide-react";
+import { Copy, RefreshCw } from "lucide-react";
+
+export async function copyTextToClipboard(text: string) {
+  if ("clipboard" in navigator) {
+    return await navigator.clipboard.writeText(text);
+  } else {
+    return document.execCommand("copy", true, text);
+  }
+}
 
 export function Camera() {
   const webcamRef = React.useRef<Webcam>(null);
@@ -74,12 +82,20 @@ export function Camera() {
         )}
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="name">Generated code</Label>
-          <Input
-            id="name"
-            placeholder="Generated code will come"
-            value={response || ""}
-            disabled
-          />
+          <div className="flex gap-4">
+            <Input
+              id="name"
+              placeholder="Generated code will come"
+              value={response || ""}
+              disabled
+            />
+            <Button
+              onClick={() => copyTextToClipboard(response || "")}
+              disabled={!response}
+            >
+              <Copy className="h-4" />
+            </Button>
+          </div>
         </div>
       </CardContent>
       <CardFooter className="flex justify-between">
